@@ -114,14 +114,14 @@ def make_prediction():
             score = float(loaded_model.predict(pad_new))  # 예측
 
             if (score > 0.5):
-                result = review
                 label = f'{score * 100} 확률로 긍정 리뷰입니다.'
                 label_list.append(label)
+                # pos_review += review
                 # result = '긍정'
             else:
-                result = review
                 label = f'{(1 - score) * 100} 확률로 부정 리뷰입니다.'
                 label_list.append(label)
+                neg_review = review
                 # result = '부정'
         review = pd.Series(review_list, name='review')
         label1 = pd.Series(label_list, name='label')
