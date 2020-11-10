@@ -20,15 +20,15 @@ def make_wordcloud(new_sentence):
     data=ko.vocab().most_common(100)
     tmp_data = dict(data)
 
-    wordcloud = WordCloud(font_path='C:/Review_Project/wordcloud_file/malgun.ttf',
+    wordcloud = WordCloud(font_path='malgun.ttf',
                           relative_scaling=0.2,
                           background_color='white',
                           ).generate_from_frequencies(tmp_data)
 
-    korea_coloring = np.array(Image.open('C:/Review_Project/wordcloud_file/movie.jpg'))
+    korea_coloring = np.array(Image.open('wordcloud_file/movie.jpg'))
     image_colors = ImageColorGenerator(korea_coloring)
 
-    wordcloud = WordCloud(font_path='C:/Review_Project/wordcloud_file/malgun.ttf',
+    wordcloud = WordCloud(font_path='malgun.ttf',
                           relative_scaling=0.2,
                           mask=korea_coloring,
                           background_color='white',

@@ -19,9 +19,17 @@
                 <input type="submit" value="예측 결과">
                 {% if label %}
                     <span class="result_lable">
-                        {{ label, result }}
+                        {% if label %}
+
+                            {% for i in final_result %}
+                                {{ i }}
+                            {% endfor %}
+                        {% endif %}
+                        <img src="{{ url_for('static', filename='images/WCImage.png') }}">
                     </span>
+
                 {% endif %}
+
             </form>
         </div>
     </div>
