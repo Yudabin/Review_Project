@@ -2,15 +2,12 @@ import pickle
 
 import flask
 from flask import Flask, request, render_template
-# from sklearn.externals import joblib
-import numpy as np
-from scipy import misc
 from tensorflow.keras.models import load_model
-from keras_preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from konlpy.tag import Okt;
 
-
+from crawling_image.get_image import image_poster
+from wordcloud_file import word_cloud
 
 t = Okt()
 okt = Okt()
@@ -32,6 +29,9 @@ def index():
 
 def make_prediction():
     if request.method == 'POST':
+        image_poster('https://movie.naver.com/movie/bi/mi/basic.nhn?code=190010')
+
+        wordcloud_text = []
         new_sentence = '엄청 재밌어요'
         stopwords = ['의', '가', '이', '은', '들', '는', '좀', '잘', '걍', '과', '도',
                      '를', '으로', '자', '에', '와', '한', '하다']
@@ -54,6 +54,9 @@ def make_prediction():
         else:
             label = (1 - score) * 100
             result = '부정'
+
+        print(new_sentence)
+        word_cloud.make_wordcloud(new_sentence)
         # 결과 리턴
         return render_template('index.html', label=label,result=result)
 
@@ -63,7 +66,6 @@ def make_prediction():
 if __name__ == '__main__':
     # 모델 로드
     # ml/model.py 선 실행 후 생성
-    # model = joblib.load('./model/model.pkl')
     loaded_model = load_model('./model/best_model.h5')
 
     # Flask 서비스 스타트
