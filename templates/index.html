@@ -17,11 +17,15 @@
             <form id="upload" action="/predict" method="POST" enctype="multipart/form-data">
 
                 <input type="submit" value="예측 결과">
-                {% if label %}
-                    <span class="result_lable">
-                        {{ label, result }}
-                    </span>
-                {% endif %}
+                <span class="result_lable">
+                    {% if label %}
+
+                        {% for i in final_result %}
+                            {{ i }}
+                        {% endfor %}
+                    {% endif %}
+                </span>
+
             </form>
         </div>
     </div>
