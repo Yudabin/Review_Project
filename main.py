@@ -19,6 +19,7 @@ app = Flask(__name__)
 
 # 메인 페이지 라우팅
 @app.route("/")
+
 @app.route("/index")
 def index():
     return flask.render_template('index.html')
@@ -35,7 +36,8 @@ def make_prediction():
 
         wordcloud_text = []
 
-        url = 'https://movie.naver.com/movie/bi/mi/basic.nhn?code=196839'
+        url = request.form['url']
+        # url = 'https://movie.naver.com/movie/bi/mi/basic.nhn?code=196839'
         review_list = []
         label_list = []
         ## == 페이지 크롤링 ==
@@ -132,7 +134,7 @@ def make_prediction():
         # print(len(review), len(label1), len(final_result))
         print(len(review_list))
         print(len(label_list))
-        word_cloud.make_wordcloud(new_sentence)
+        # word_cloud.make_wordcloud(new_sentence)
         # 결과 리턴
         # html에서 데이터프레임 인식x
         # 데이터프레임을 array(데이터프레임.values)로 변환해서 출력

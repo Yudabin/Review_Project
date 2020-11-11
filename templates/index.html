@@ -40,7 +40,7 @@
     <div class="container">
       <div class="row">
         <div class="col-xl-9 mx-auto">
-          <h1 class="mb-5" style="line-height:160%;">
+          <h1 class="mb-5" style="line-height:160%">
             <br>영화에 대한 진짜 리뷰를 보여드립니다 <br> 당신은 어떤 영화가 궁금하신가요? </br></h1>
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
@@ -65,31 +65,23 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-4">
-          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-              <i class="icon-screen-desktop m-auto text-primary"></i>
-            </div>
-            <h3>Web Crawling</h3>
-            <p class="lead mb-0">평점 신뢰도가 가장 높은<br> Naver 영화 리뷰를 바탕으로 합니다</br></p>
-          </div>
+
+            <h3>영화 포스터</h3>
+
+            <div style="width: 300px; height: 300px; background-image: url({{ url_for('static', filename = 'images/bg-masthead.jpg') }});background-size:contain"></div>
+
         </div>
         <div class="col-lg-4">
-          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-              <i class="icon-layers m-auto text-primary"></i>
-            </div>
-            <h3>Analysis</h3>
-            <p class="lead mb-0">60,000여개의 리뷰를 통해<br>머신러닝 모델을 구축했습니다</p>
-          </div>
+
+            <h3>긍정 단어들</h3>
+            <div style="width: 300px; height: 300px; background-image: url({{ url_for('static', filename = 'images/bg-showcase-1.png') }});background-size:contain"></div>
+
         </div>
         <div class="col-lg-4">
-          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-              <i class="icon-check m-auto text-primary"></i>
-            </div>
-            <h3>Word Cloud</h3>
-            <p class="lead mb-0">보기 편한 워드클라우드와<br>긍정률/부정률을 보여드립니다</p>
-          </div>
+            <h3>부정 단어들</h3>
+<!--            <p class="lead mb-0">보기 편한 워드클라우드와<br>긍정률/부정률을 보여드립니다</p>-->
+            <div style="width: 300px; height: 300px; background-image: url({{ url_for('static', filename = 'images/bg-showcase-1.png') }});background-size:contain"></div>
+
         </div>
       </div>
     </div>
@@ -98,15 +90,7 @@
   <!-- Image Showcases -->
   <section class="showcase">
     <div class="container-fluid p-0">
-      <div class="row no-gutters">
-
-        <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url({{ url_for('static', filename = 'images/bg-showcase-1.png') }}); background-size: contain; background-repeat: no-repeat; background-position : center"></div>
-        <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-          <div class="d-flex justify-content-center align-items-center">
-            <h1 class="mr-3 pr-3 align-top inline-block align-content-center">긍정률 90%</h1>
-            <div class="inline-block align-middle">
-              <h2 class="font-weight-normal lead border-top" >
-                <span class="result_lable">
+                <span>
 
                    {% for i, s in final_result %}
                   <br>
@@ -114,70 +98,10 @@
                       {{s}}
                   </br>
                    {% endfor %}
-<!--                  {% for x in score %}-->
-<!--                  <br>-->
-<!--                      {{ x}}-->
-<!--                  </br>-->
-<!--                   {% endfor %}-->
-
-
                 </span>
-
-              </h2>
-                </span>
-<!--                <br>정말 재미 있어서 최고최고 사랑합니다. 아이언맨</br>-->
-              </h2>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row no-gutters">
-        <div class="col-lg-6 text-white showcase-img" style="background-image: url({{ url_for('static', filename = 'images/bg-showcase-2.png') }}); background-size: contain; background-repeat: no-repeat; background-position : center"></div>
-        <div class="col-lg-6 my-auto showcase-text">
-          <div class="d-flex justify-content-center align-items-center">
-            <h1 class="mr-3 pr-3 align-top inline-block align-content-center">부정률 10%</h1>
-            <div class="inline-block align-middle">
-              <h2 class="font-weight-normal lead border-top" id="desc">
-                <br>보다가 저희 집 개도 함께 잠들었습니다. 보다가 저희 집 개도 함께 잠들었습니다. 보다가 저희 집 개도 함께 잠들었습니다. 보다가 저희 집 개도 함께 잠들었습니다. 보다가 저희 집 개도 함께 잠들었습니다. </br>
-                <br>다시 보고 또 보고 또 봐도 돈이 아깝습니다. 지겹</br>
-                <br>다시 보고 또 보고 또 봐도 돈이 아깝습니다. 지겹</br>
-                <br>다시 보고 또 보고 또 봐도 돈이 아깝습니다. 지겹</br></h2>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- Testimonials -->
-  <section class="testimonials text-center bg-light">
-    <div class="container">
-      <h2 class="mb-5">Who made this?</h2>
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-            <img class="img-fluid rounded-circle mb-3" src="{{ url_for('static', filename = 'images/testimonials-1.jpg') }}" alt="">
-            <h5>Margaret E.</h5>
-            <p class="font-weight-light mb-0">"힘들었어요"</p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-            <img class="img-fluid rounded-circle mb-3" src="{{ url_for('static', filename = 'images/testimonials-2.jpg') }}" alt="">
-            <h5>Fred S.</h5>
-            <p class="font-weight-light mb-0">"조금 힘들었어요"</p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-            <img class="img-fluid rounded-circle mb-3" src="{{ url_for('static', filename = 'images/testimonials-3.jpg') }}" alt="">
-            <h5>Sarah W.</h5>
-            <p class="font-weight-light mb-0">"아주 조금 힘들었어요"</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
 </form>
 </body>
