@@ -66,10 +66,14 @@ def make_prediction():
             else:
                 total_pages = int(link.text)
         pages = int(total_pages / 10)
+        if pages < 100:
+            final_pages = pages
+        else:
+            final_pages = 100
 
         ## == 리뷰 크롤링 ==
 
-        for page in range(1, pages + 1):
+        for page in range(1, final_pages + 1):
             # URL
             naver_movie_url = url.split('basic')[0] + 'pointWriteFormList' + url.split('basic')[1] + f'&page={page}'
 
