@@ -94,6 +94,7 @@ def make_prediction():
             review = pd.Series(review_list, name='review')
         movie_review = review
 
+
         # new_sentence = '엄청 재밌어요'
         stopwords = ['의', '가', '이', '은', '들', '는', '좀', '잘', '걍', '과', '도',
                      '를', '으로', '자', '에', '와', '한', '하다']
@@ -102,8 +103,8 @@ def make_prediction():
         with open('./ml/tokenizer.pickle', 'rb') as f:
             tokenizer = pickle.load(f)
 
-        for review in movie_review:
-            review_list.append(review)
+        # for review in movie_review:
+        #     review_list.append(review)
         for new_sentence, review in zip(movie_review, review_list):
             new_sentence = okt.morphs(new_sentence, stem=True)  # 토큰화
             new_sentence = [word for word in new_sentence if not word in stopwords]  # 불용어 제거
@@ -123,19 +124,20 @@ def make_prediction():
                 label_list.append(label)
                 neg_review = review
                 # result = '부정'
+        result = zip(review_list,label_list)
         review = pd.Series(review_list, name='review')
         label1 = pd.Series(label_list, name='label')
-        final_result = pd.merge(review, label1, left_index=True, right_index=True)
+
+        # final_result = pd.merge(review, label1, left_index=True, right_index=True)
         # print(len(review), len(label1), len(final_result))
-        # print(final_result)
-
-
-        print(new_sentence)
+        print(len(review_list))
+        print(len(label_list))
         word_cloud.make_wordcloud(new_sentence)
         # 결과 리턴
         # html에서 데이터프레임 인식x
         # 데이터프레임을 array(데이터프레임.values)로 변환해서 출력
-        return render_template('index.html', label=label, final_result=final_result.values)
+        print(review_list+label_list)
+        return render_template('index.html', label=label, final_result=result,score=label_list)
 
 # sentiment_predict('이 영화 개꿀잼 ㅋㅋㅋ')
 

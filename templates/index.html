@@ -51,9 +51,6 @@
               </div>
               <div class="col-12 col-md-3">
                 <button type="submit" class="btn btn-block btn-lg btn-primary">Click !
-                  <!--<span class="result_lable">-->
-                  <!--{{ label }}-->
-                  <!--</span>-->
                 </button>
               </div>
             </div>
@@ -110,9 +107,23 @@
             <div class="inline-block align-middle">
               <h2 class="font-weight-normal lead border-top" >
                 <span class="result_lable">
-                   {% for i in final_result %}
+
+                   {% for i, s in final_result %}
+                  <br>
                       {{ i}}
+                      {{s}}
+                  </br>
                    {% endfor %}
+<!--                  {% for x in score %}-->
+<!--                  <br>-->
+<!--                      {{ x}}-->
+<!--                  </br>-->
+<!--                   {% endfor %}-->
+
+
+                </span>
+
+              </h2>
                 </span>
 <!--                <br>정말 재미 있어서 최고최고 사랑합니다. 아이언맨</br>-->
               </h2>
