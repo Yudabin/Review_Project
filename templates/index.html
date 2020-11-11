@@ -26,7 +26,7 @@
 </head>
 
 <body>
-
+<form id="upload" action="/predict" method="POST" enctype="multipart/form-data">
 <!-- Navigation -->
 <nav class="navbar navbar-light bg-light static-top">
   <div class="container">
@@ -49,7 +49,11 @@
               <input type="email" class="form-control form-control-lg" placeholder="네이버 영화 URL을 넣어주세요">
             </div>
             <div class="col-12 col-md-3">
-              <button type="submit" class="btn btn-block btn-lg btn-primary">Click !</button>
+              <button type="submit" class="btn btn-block btn-lg btn-primary">Click !
+                  <!--<span class="result_lable">-->
+                      <!--{{ label }}-->
+                  <!--</span>-->
+              </button>
             </div>
           </div>
         </form>
@@ -102,18 +106,17 @@
       <div class="col-lg-6 order-lg-1 my-auto showcase-text">
         <div class="d-flex justify-content-center align-items-center">
           <h1 class="mr-3 pr-3 align-top inline-block align-content-center">긍정률 90%</h1>
-          <div class="inline-block align-middle">
-            <h2 class="font-weight-normal lead border-top" >
-              <br>정말 재미 있어서 최고최고 사랑합니다. 아이언맨 정말 재미 있어서 최고최고 사랑합니다. 아이언맨정말 재미 있어서 최고최고 사랑합니다. 아이언맨정말 재미 있어서 최고최고 사랑합니다. 아이언맨정말 재미 있어서 최고최고 사랑합니다. 아이언맨</br>
-              <br>정말 재미 있어서 최고최고 사랑합니다. 아이언맨</br>
-              <br>정말 재미 있어서 최고최고 사랑합니다. 아이언맨</br>
-              <br>정말 재미 있어서 최고최고 사랑합니다. 아이언맨</br></h2>
-          </div>
+            <div class="inline-block align-middle">
+              <h2 class="font-weight-normal lead border-top" >
+                <br> {{ label }}</br>
+                <br>정말 재미 있어서 최고최고 사랑합니다. 아이언맨</br>
+              </h2>
+            </div>
         </div>
       </div>
     </div>
     <div class="row no-gutters">
-      <div class="col-lg-6 text-white showcase-img" style="background-image: url('../img/bg-showcase-2.png'); background-size: contain; background-repeat: no-repeat; background-position : center"></div>
+      <div class="col-lg-6 text-white showcase-img" style="background-image: url({{ url_for('static', filename = 'images/bg-showcase-2.png') }}); background-size: contain; background-repeat: no-repeat; background-position : center"></div>
       <div class="col-lg-6 my-auto showcase-text">
         <div class="d-flex justify-content-center align-items-center">
           <h1 class="mr-3 pr-3 align-top inline-block align-content-center">부정률 10%</h1>
@@ -137,21 +140,21 @@
     <div class="row">
       <div class="col-lg-4">
         <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-          <img class="img-fluid rounded-circle mb-3" src="../img/testimonials-1.jpg" alt="">
+          <img class="img-fluid rounded-circle mb-3" src="{{ url_for('static', filename = 'images/testimonials-1.jpg') }}" alt="">
           <h5>Margaret E.</h5>
           <p class="font-weight-light mb-0">"힘들었어요"</p>
         </div>
       </div>
       <div class="col-lg-4">
         <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-          <img class="img-fluid rounded-circle mb-3" src="../img/testimonials-2.jpg" alt="">
+          <img class="img-fluid rounded-circle mb-3" src="{{ url_for('static', filename = 'images/testimonials-2.jpg') }}" alt="">
           <h5>Fred S.</h5>
           <p class="font-weight-light mb-0">"조금 힘들었어요"</p>
         </div>
       </div>
       <div class="col-lg-4">
         <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-          <img class="img-fluid rounded-circle mb-3" src="../img/testimonials-3.jpg" alt="">
+          <img class="img-fluid rounded-circle mb-3" src="{{ url_for('static', filename = 'images/testimonials-3.jpg') }}" alt="">
           <h5>Sarah W.</h5>
           <p class="font-weight-light mb-0">"아주 조금 힘들었어요"</p>
         </div>
@@ -160,7 +163,7 @@
   </div>
 </section>
 
-
+</form>
 </body>
 
 </html>
