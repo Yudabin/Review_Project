@@ -30,7 +30,6 @@
   <!-- Navigation -->
   <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-
       <a class="navbar-brand" href="#">Naver Movie Word Cloud</a>
     </div>
   </nav>
@@ -66,21 +65,23 @@
       <div class="row">
         <div class="col-lg-4">
 
-            <h3>영화 포스터</h3>
+            <h3 style="float:left;margin-left:20%">영화 포스터</h3>
 
-            <div style="width: 300px; height: 300px; background-image: url({{ url_for('static', filename = 'images/bg-masthead.jpg') }});background-size:contain"></div>
-
-        </div>
-        <div class="col-lg-4">
-
-            <h3>긍정 단어들</h3>
-            <div style="width: 300px; height: 300px; background-image: url({{ url_for('static', filename = 'images/bg-showcase-1.png') }});background-size:contain"></div>
+            <div style="padding: 3px;width: 400px; height: 400px; background-image: url({{ url_for('static', filename = 'images/bg-masthead.jpg') }});
+            background-repeat:no-repeat;background-size:contain;float:left;margin-left:-10%;width:100%"></div>
 
         </div>
         <div class="col-lg-4">
-            <h3>부정 단어들</h3>
-<!--            <p class="lead mb-0">보기 편한 워드클라우드와<br>긍정률/부정률을 보여드립니다</p>-->
-            <div style="width: 300px; height: 300px; background-image: url({{ url_for('static', filename = 'images/bg-showcase-1.png') }});background-size:contain"></div>
+
+            <h3>긍정 Cloud</h3>
+            <div style="width: 400px; height: 400px; background-image: url({{ url_for('static', filename = 'images/bg-showcase-1.png') }});
+            background-repeat:no-repeat;background-size:contain;float:left;margin-left;width:100%;"></div>
+
+        </div>
+        <div class="col-lg-4">
+            <h3 style="float:left;margin-left:40%">부정 Cloud</h3>
+            <div style="width: 400px; height: 400px; background-image: url({{ url_for('static', filename = 'images/bg-showcase-1.png') }});
+            background-repeat:no-repeat;background-size:contain;float:right;margin-right:-10%;width:100%;"></div>
 
         </div>
       </div>
@@ -88,20 +89,45 @@
   </section>
 
   <!-- Image Showcases -->
-  <section class="showcase">
+    <section class="showcase">
     <div class="container-fluid p-0">
+        <table class="table table-striped" style="width:80%;margin:auto">
+            <thead>
+            <tr>
+                <th style="text-align:center">분류</th>
+                <th style="text-align:center">리뷰 내용</th>
+                <th style="text-align:center">정확도</th>
+            </tr>
+            </thead>
+            <tbody>
                 <span>
-
-                   {% for i, s in final_result %}
-                  <br>
-                      {{ i}}
-                      {{s}}
-                  </br>
+                   {% for review, label, score in final_result %}
+                    <tr>
+                    <td>{{score}}</td>
+                    <td>{{review}} </td>
+                    <td>{{label}}</td>
+                    </tr>
                    {% endfor %}
                 </span>
+            </tbody>
+        </table>
+      <div class="container">
+         <div class="row">
+            <div class="col">
+               <ul class="pagination">
+                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">4</a></li>
+                  <li class="page-item"><a class="page-link" href="#">5</a></li>
+                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+               </ul>
+            </div>
+         </div>
+      </div>
     </div>
   </section>
-
 
 </form>
 </body>

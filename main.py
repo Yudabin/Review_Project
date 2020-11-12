@@ -40,6 +40,7 @@ def make_prediction():
         # url = 'https://movie.naver.com/movie/bi/mi/basic.nhn?code=196839'
         review_list = []
         label_list = []
+        score_list = []
         ## == 페이지 크롤링 ==
         # request 보냄.
         naver_movie_page_url = url.split('basic')[0] + 'pointWriteFormList' + url.split('basic')[1] + '&page=1'
@@ -123,16 +124,17 @@ def make_prediction():
             if (score > 0.5):
                 label = f'{score * 100} 확률로 긍정 리뷰입니다.'
                 label_list.append(label)
-                # pos_review += review
-                # result = '긍정'
+                n = '긍정'
+                score_list.append(n)
             else:
                 label = f'{(1 - score) * 100} 확률로 부정 리뷰입니다.'
                 label_list.append(label)
-                neg_review = review
-                # result = '부정'
-        result = zip(review_list,label_list)
-        review = pd.Series(review_list, name='review')
-        label1 = pd.Series(label_list, name='label')
+                n='부정'
+                score_list.append(n)
+        result = zip(review_list,label_list, score_list)
+        # review = pd.Series(review_list, name='review')
+        # label1 = pd.Series(label_list, name='label')
+        # score1 = pd.Series(score_list, name='score')
 
         # final_result = pd.merge(review, label1, left_index=True, right_index=True)
         # print(len(review), len(label1), len(final_result))
@@ -143,7 +145,7 @@ def make_prediction():
         # html에서 데이터프레임 인식x
         # 데이터프레임을 array(데이터프레임.values)로 변환해서 출력
         print(review_list+label_list)
-        return render_template('index.html', label=label, final_result=result,score=label_list)
+        return render_template('index.html', label=label, final_result=result,score=score_list)
 
 # sentiment_predict('이 영화 개꿀잼 ㅋㅋㅋ')
 
