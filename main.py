@@ -6,7 +6,7 @@ import flask
 from flask import Flask, request, render_template
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-from konlpy.tag import Okt;
+from konlpy.tag import Okt
 
 from crawling_image.get_image import image_poster
 from wordcloud_file import word_cloud
@@ -24,6 +24,14 @@ app = Flask(__name__)
 def index():
     return flask.render_template('index.html')
 
+# 캐시 삭제
+@app.after_request
+def set_response_headers(response):
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
+
 
 # 데이터 예측 처리
 @app.route('/predict', methods=['POST'])
@@ -32,11 +40,12 @@ def index():
 
 def make_prediction():
     if request.method == 'POST':
-        image_poster('https://movie.naver.com/movie/bi/mi/basic.nhn?code=190010')
+        url = request.form['url']
+        image_poster(url)
 
         wordcloud_text = []
 
-        url = request.form['url']
+
         # url = 'https://movie.naver.com/movie/bi/mi/basic.nhn?code=196839'
         review_list = []
         label_list = []
@@ -98,9 +107,10 @@ def make_prediction():
                 search_reviews = soup.select(review_selector)
                 for review in search_reviews:
                     review_list.append(review.text.strip())
-            review = pd.Series(review_list, name='review')
-        movie_review = review
+                    review_list = list(filter(bool, review_list))
 
+        #     review = pd.Series(review_list, name='review')
+        # movie_review = review
 
         # new_sentence = '엄청 재밌어요'
         stopwords = ['의', '가', '이', '은', '들', '는', '좀', '잘', '걍', '과', '도',
@@ -112,7 +122,7 @@ def make_prediction():
 
         # for review in movie_review:
         #     review_list.append(review)
-        for new_sentence, review in zip(movie_review, review_list):
+        for new_sentence in review_list:
             new_sentence = okt.morphs(new_sentence, stem=True)  # 토큰화
             new_sentence = [word for word in new_sentence if not word in stopwords]  # 불용어 제거
 
@@ -145,7 +155,8 @@ def make_prediction():
         # html에서 데이터프레임 인식x
         # 데이터프레임을 array(데이터프레임.values)로 변환해서 출력
         print(review_list+label_list)
-        return render_template('index.html', label=label, final_result=result,score=score_list)
+        return render_template('index.html', final_result=result,score=score_list,
+                               image_file='../static/images/movieposter.jpg')
 
 # sentiment_predict('이 영화 개꿀잼 ㅋㅋㅋ')
 
