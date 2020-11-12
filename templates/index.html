@@ -3,137 +3,158 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-    <title>Naver Movie Word Cloud</title>
+	<title>Naver Movie Word Cloud</title>
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}">
+	<!-- CSS -->
 
-    <!-- Custom fonts for this template -->
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/simple-line-icons.css') }}">
-
-    <link href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
-
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/landing-page.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/main.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/landing-page.min.css') }}">
 
 
 </head>
 
 <body>
 <form id="upload" action="/predict" method="POST" enctype="multipart/form-data">
-    <!-- Navigation -->
-    <nav class="navbar navbar-light bg-light static-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">Naver Movie Word Cloud</a>
-        </div>
-    </nav>
 
-    <!-- Masthead -->
-    <header class="masthead text-white text-center" style="background-image: url({{ url_for('static', filename='images/background.png') }})">
-        <!--    <div class="overlay"></div>-->
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-9 mx-auto">
-                    <h1 class="mb-5" style="line-height:160%;">
-                        <br>영화에 대한 진짜 리뷰를 보여드립니다 <br> 당신은 어떤 영화가 궁금하신가요? </br></h1>
-                </div>
-                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-                    <form>
-                        <div class="form-row">
-                            <div class="col-12 col-md-9 mb-2 mb-md-0">
-                                <input name="url" type="text" class="form-control form-control-lg" placeholder="네이버 영화 URL을 넣어주세요">
-                            </div>
-                            <div class="col-12 col-md-3">
-                                <button type="submit" class="btn btn-block btn-lg btn-primary">Click !
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- Icons Grid -->
-    <section class="features-icons bg-light text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
+	<!-- Wrapper -->
+	<div>
+		<!-- Main -->
+		<div id="main">
 
-                    <h3 style="float:left;margin-left:20%">영화 포스터</h3>
-<!--background-image: url({{ url_for('static', filename = 'images/movieposter.jpg') }})-->
-                    <div style="padding: 3px;width: 400px; height: 400px; ;
-            background-repeat:no-repeat;background-size:contain;float:left;margin-left:-10%;width:100%">
+			<!-- 메인 포스트 -->
+			<article class="post featured">
+				<header class="major">
+					<span class="date">Naver Review Analyze</span>
+					<h2 style="font-size:3rem;mar;line-height: 1.5">영화에 대한 사람들의 속마음,<br>
+						Data로 보여드립니다</h2>
+				</header>
 
-                        <img src="{{ url_for('static', filename=image_file) }}" style="width:100%;height:100%">
+				<!-- 버튼 넣기 -->
+				<div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+					<div class="form-row">
+						<div class="col-12 col-md-9 mb-2 mb-md-0" style="background-color:#d8d7d9">
+							<input name="url" type="text" class="form-control form-control-lg" placeholder="네이버 영화 URL을 넣어주세요">
+						</div>
+						<div class="col-12 col-md-3">
+							<br><button type="submit" class="btn btn-block btn-lg btn-primary">Click!</button>
+						</div>
+					</div>
+				</div>
 
-                    </div>
 
-                </div>
-                <div class="col-lg-4">
+			</article>
 
-                    <h3>긍정 Cloud</h3>
-                    <div style="width: 400px; height: 400px; background-image: url({{ url_for('static', filename = 'images/bg-showcase-1.png') }});
-            background-repeat:no-repeat;background-size:contain;float:left;margin-left;width:100%;"></div>
+			<!-- Posts -->
+			<section class="posts">
+				<article>
+					<header>
+						<h2><a href="#">영화 포스터</a></h2>
+					</header>
+					<a href="#" class="image fit">
+						<!--						<img src="{{ url_for('static', filename = '/images/poster.jpg') }}"></a>-->
+						<img src="{{ url_for('static', filename=image_file) }}" style="width:100%;height:100%"></a>
+						<p></p>
+				</article>
+				<article>
+					<header>
+						<h2><a href="#">긍정/부정 비율</a></h2>
+					</header>
+					<a href="#" class="image fit">
+						<img src="{{ url_for('static', filename = '/images/ratio.jpg') }}"></a>
+					<p></p>
+				</article>
+				<article>
+					<header>
+						<h2><a href="#">긍정 Word Cloud</a></h2>
+					</header>
+					<a href="#" class="image fit">
+<!--						<img src="{{ url_for('static', filename = '/images/wc_p.png') }}"></a>-->
+						<img src="{{ url_for('static', filename = '/images/positive.png') }}"></a>
+					<p></p>
+				</article>
+				<article>
+					<header>
+						<h2><a href="#">부정 Word Cloud</a></h2>
+					</header>
+					<a href="#" class="image fit">
+<!--						<img src="{{ url_for('static', filename = '/images/wc_n.png') }}"></a>-->
+						<img src="{{ url_for('static', filename = '/images/negative.png') }}"></a>
+					<p></p>
+				</article>
+			</section>
+			<!-- 게시판 -->
 
-                </div>
-                <div class="col-lg-4">
-                    <h3 style="float:left;margin-left:40%">부정 Cloud</h3>
-                    <div style="width: 400px; height: 400px; background-image: url({{ url_for('static', filename = 'images/bg-showcase-1.png') }});
-            background-repeat:no-repeat;background-size:contain;float:right;margin-right:-10%;width:100%;"></div>
+			<div class="container-fluid p-0">
+				<table class="table table-striped" style="width:100%;margin:auto">
+					<thead>
+					<tr>
+						<th style="text-align:center;width:20%;font-size:18pt;font-weight:bold">분류</th>
+						<th style="text-align:center;width:60%;font-size:18pt;font-weight:bold">리뷰 내용</th>
+						<th style="text-align:center;width:20%;font-size:18pt;font-weight:bold">정확도</th>
+					</tr>
+					</thead>
+					<tbody>
+						<span>
+						   {% for review, label, score in final_result %}
+							{% if score == '긍정'%}
+								<tr>
+								<td style="text-align: center; color:#5AD519;vertical-align: middle;font-size:16pt; font-weight:bold">{{score}}</td>
+								<td style="vertical-align: middle;font-size:14pt">{{review}} </td>
+								<td style="text-align: center; vertical-align: middle;font-size:16pt">{{label}}</td>
+								</tr>
+							{% elif score == '부정'%}
+								<tr>
+								<td style="text-align: center; color:#E61C12; vertical-align: middle;font-size:16pt;font-weight:bold">{{score}}</td>
+								<td style="vertical-align: middle;font-size:14pt">{{review}} </td>
+								<td style="text-align: center; vertical-align: middle;font-size:16pt">{{label}}</td>
+								</tr>
+							{% endif %}
+						   {% endfor %}
+						</span>
+<!--					<span>-->
+<!--                   {% for review, label, score in final_result %}-->
+<!--                    	{% if score == '긍정'%}-->
+<!--                            <tr>-->
+<!--                                <td style="color:#5AD519"><strong>{{score}}</strong></td>-->
+<!--                                <td>{{review}} </td>-->
+<!--                                <td>{{label}}</td>-->
+<!--                            </tr>-->
+<!--						{% elif score == '부정'%}-->
+<!--                            <tr>-->
+<!--                                <td style="color:#E61C12"><strong>{{score}}</strong></td>-->
+<!--                                <td>{{review}} </td>-->
+<!--                                <td>{{label}}</td>-->
+<!--                            </tr>-->
+<!--                        {% endif %}-->
 
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Image Showcases -->
-    <section class="showcase">
-        <div class="container-fluid p-0">
-            <table class="table table-striped" style="width:80%;margin:auto">
-                <thead>
-                <tr>
-                    <th style="text-align:center">분류</th>
-                    <th style="text-align:center">리뷰 내용</th>
-                    <th style="text-align:center">정확도</th>
-                </tr>
-                </thead>
-                <tbody>
-                <span>
-                   {% for review, label, score in final_result %}
-                    <tr>
-                    <td>{{score}}</td>
-                    <td>{{review}} </td>
-                    <td>{{label}}</td>
-                    </tr>
-                   {% endfor %}
-                </span>
-                </tbody>
-            </table>
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!--                   {% endfor %}-->
+<!--                	</span>-->
+					</tbody>
+				</table>
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<ul class="pagination">
+								<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#">4</a></li>
+								<li class="page-item"><a class="page-link" href="#">5</a></li>
+								<li class="page-item"><a class="page-link" href="#">Next</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </form>
 </body>
-
 </html>

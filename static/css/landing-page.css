@@ -22,7 +22,7 @@ h6 {
 
 header.masthead {
   position: relative;
-  background-color: #343a40;
+  background-color: #0d053e;
   background-image: url({{ url_for('static', filename = 'images/bg-masthead.jpg') }}) no-repeat center center;
   background-size: cover;
   padding-top: 8rem;
@@ -69,24 +69,24 @@ header.masthead h1 {
 }
 
 .features-icons {
-  padding-top: 7rem;
-  padding-bottom: 7rem;
+  padding-top: 10rem;
+  padding-bottom: 10rem;
 }
 
 .features-icons .features-icons-item {
-  max-width: 20rem;
+  max-width: 100rem;
 }
 
 .features-icons .features-icons-item .features-icons-icon {
-  height: 7rem;
+  height: 10rem;
 }
 
 .features-icons .features-icons-item .features-icons-icon i {
-  font-size: 4.5rem;
+  font-size: 8rem;
 }
 
 .features-icons .features-icons-item:hover .features-icons-icon i {
-  font-size: 5rem;
+  font-size: 10rem;
 }
 
 .testimonials {

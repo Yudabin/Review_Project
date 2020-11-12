@@ -9,7 +9,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from konlpy.tag import Okt
 
 from crawling_image.get_image import image_poster
-from wordcloud_file import word_cloud
+from wordcloud_file.word_cloud import make_words_cloud
 
 t = Okt()
 okt = Okt()
@@ -49,7 +49,14 @@ def make_prediction():
         # url = 'https://movie.naver.com/movie/bi/mi/basic.nhn?code=196839'
         review_list = []
         label_list = []
+        good_label_list = []
+        bad_label_list = []
+        good_review_list = []
+        bad_review_list = []
+        good_score_list = []
+        bad_score_list = []
         score_list = []
+
         ## == 페이지 크롤링 ==
         # request 보냄.
         naver_movie_page_url = url.split('basic')[0] + 'pointWriteFormList' + url.split('basic')[1] + '&page=1'
@@ -109,8 +116,8 @@ def make_prediction():
                     review_list.append(review.text.strip())
                     review_list = list(filter(bool, review_list))
 
-        #     review = pd.Series(review_list, name='review')
-        # movie_review = review
+            review = pd.Series(review_list, name='review')
+        movie_review = review
 
         # new_sentence = '엄청 재밌어요'
         stopwords = ['의', '가', '이', '은', '들', '는', '좀', '잘', '걍', '과', '도',
@@ -120,9 +127,9 @@ def make_prediction():
         with open('./ml/tokenizer.pickle', 'rb') as f:
             tokenizer = pickle.load(f)
 
-        # for review in movie_review:
-        #     review_list.append(review)
-        for new_sentence in review_list:
+            # for review in movie_review:
+            #     review_list.append(review)
+        for new_sentence, review in zip(movie_review, review_list):
             new_sentence = okt.morphs(new_sentence, stem=True)  # 토큰화
             new_sentence = [word for word in new_sentence if not word in stopwords]  # 불용어 제거
 
@@ -132,31 +139,45 @@ def make_prediction():
             score = float(loaded_model.predict(pad_new))  # 예측
 
             if (score > 0.5):
-                label = f'{score * 100} 확률로 긍정 리뷰입니다.'
+                label = f'{int(score * 100)} %'
                 label_list.append(label)
+                good_label_list.append(label)
+                good_review_list.append(review)
+
                 n = '긍정'
                 score_list.append(n)
-            else:
-                label = f'{(1 - score) * 100} 확률로 부정 리뷰입니다.'
-                label_list.append(label)
-                n='부정'
-                score_list.append(n)
-        result = zip(review_list,label_list, score_list)
-        # review = pd.Series(review_list, name='review')
-        # label1 = pd.Series(label_list, name='label')
-        # score1 = pd.Series(score_list, name='score')
+                good_score_list.append(n)
 
-        # final_result = pd.merge(review, label1, left_index=True, right_index=True)
+            else:
+                label = f'{int((1 - score) * 100)} %'
+                label_list.append(label)
+                bad_label_list.append(label)
+                bad_review_list.append(review)
+
+                n = '부정'
+                score_list.append(n)
+                bad_score_list.append(n)
+        result = zip(review_list, label_list, score_list)
+        good_result = zip(good_label_list, good_review_list, good_score_list)
+        bad_result = zip(bad_label_list, bad_review_list, bad_score_list)
+
+        review = pd.Series(review_list, name='review')
+        label1 = pd.Series(label_list, name='label')
+        score1 = pd.Series(score_list, name='score')
+
+        final_result = pd.merge(review, label1, left_index=True, right_index=True)
+        final_result = pd.merge(final_result, score1, left_index=True, right_index=True)
         # print(len(review), len(label1), len(final_result))
-        print(len(review_list))
-        print(len(label_list))
-        # word_cloud.make_wordcloud(new_sentence)
+
+        make_words_cloud(final_result)
         # 결과 리턴
-        # html에서 데이터프레임 인식x
-        # 데이터프레임을 array(데이터프레임.values)로 변환해서 출력
-        print(review_list+label_list)
+        total_list = result
+        good_list = good_result
+        bad_list = bad_result
+
         return render_template('index.html', final_result=result,score=score_list,
-                               image_file='../static/images/movieposter.jpg')
+                               image_file='../static/images/movieposter.jpg',
+                           good_result = good_result, bad_result=bad_result)
 
 # sentiment_predict('이 영화 개꿀잼 ㅋㅋㅋ')
 
