@@ -19,5 +19,5 @@ def image_poster(title_address):
     # img.alt는 이미지 대체 텍스트
     # urllib.request.urlretrieve(imgUrl, soup.find("img")["alt"] + '.jpg')
     urllib.request.urlretrieve(imgUrl, './static/images/movieposter.jpg')
-    plt.show()
+    # plt.show()
 

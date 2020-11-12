@@ -116,8 +116,8 @@ def make_prediction():
                     review_list.append(review.text.strip())
                     review_list = list(filter(bool, review_list))
 
-            review = pd.Series(review_list, name='review')
-        movie_review = review
+        #     review2 = pd.Series(review_list, name='review')
+        # movie_review = review2
 
         # new_sentence = '엄청 재밌어요'
         stopwords = ['의', '가', '이', '은', '들', '는', '좀', '잘', '걍', '과', '도',
@@ -129,7 +129,9 @@ def make_prediction():
 
             # for review in movie_review:
             #     review_list.append(review)
-        for new_sentence, review in zip(movie_review, review_list):
+        # for new_sentence, review1 in zip(movie_review, review_list):
+        for new_sentence in review_list:
+            pos = new_sentence
             new_sentence = okt.morphs(new_sentence, stem=True)  # 토큰화
             new_sentence = [word for word in new_sentence if not word in stopwords]  # 불용어 제거
 
@@ -142,7 +144,7 @@ def make_prediction():
                 label = f'{int(score * 100)} %'
                 label_list.append(label)
                 good_label_list.append(label)
-                good_review_list.append(review)
+                good_review_list.append(pos)
 
                 n = '긍정'
                 score_list.append(n)
@@ -152,7 +154,7 @@ def make_prediction():
                 label = f'{int((1 - score) * 100)} %'
                 label_list.append(label)
                 bad_label_list.append(label)
-                bad_review_list.append(review)
+                bad_review_list.append(pos)
 
                 n = '부정'
                 score_list.append(n)
