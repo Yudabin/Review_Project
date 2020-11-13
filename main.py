@@ -10,6 +10,7 @@ from konlpy.tag import Okt
 
 from crawling_image.get_image import image_poster
 from wordcloud_file.word_cloud import make_words_cloud
+from pos_neg_graph.graph import percent_graph2
 
 t = Okt()
 okt = Okt()
@@ -41,6 +42,7 @@ def set_response_headers(response):
 def make_prediction():
     if request.method == 'POST':
         url = request.form['url']
+        # image_url = url.split('basic')[0] + 'photoViewPopup' + url.split('basic')[1]
         image_poster(url)
 
         wordcloud_text = []
@@ -172,12 +174,13 @@ def make_prediction():
         # print(len(review), len(label1), len(final_result))
 
         make_words_cloud(final_result)
+        percent_graph2(final_result)
         # 결과 리턴
         total_list = result
         good_list = good_result
         bad_list = bad_result
 
-        return render_template('index.html', final_result=result,score=score_list,
+        return render_template('index.html', url = url, final_result=result,score=score_list,
                                image_file='../static/images/movieposter.jpg',
                            good_result = good_result, bad_result=bad_result)
 

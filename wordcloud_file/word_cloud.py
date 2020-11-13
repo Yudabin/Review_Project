@@ -2,6 +2,7 @@ import nltk
 from konlpy.tag import Okt
 import numpy as np
 from PIL import Image
+from pasta.augment import inline
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from wordcloud import ImageColorGenerator
@@ -16,7 +17,9 @@ from soynlp.tokenizer import LTokenizer
 from collections import Counter
 from wordcloud import WordCloud
 import random
-
+from IPython.display import set_matplotlib_formats
+set_matplotlib_formats('retina')
+# %matplotlib inline
 
 def make_words_cloud(final_result):
     # 리뷰데이터 단어 추출 - LTokenize
@@ -63,9 +66,9 @@ def make_words_cloud(final_result):
 
     # 부정 리뷰 워드 클라우드
     def negative(negative_words_dict):
-        negative_cloud = WordCloud(
-            font_path='malgun.ttf',
-            background_color='white', width=500, height=500).generate_from_frequencies(negative_words_dict)
+        # negative_cloud = WordCloud(
+        #     font_path='malgun.ttf',
+        #     background_color='white', width=500, height=500).generate_from_frequencies(negative_words_dict)
 
         korea_coloring1 = np.array(
             Image.open('./static/images/bad.png'))
@@ -85,12 +88,13 @@ def make_words_cloud(final_result):
             mask=korea_coloring1,
             background_color='white',
             min_font_size=1,
-            max_font_size=40
+            max_font_size=40,
+            contour_width=2, contour_color="black"
             ).generate_from_frequencies(negative_words_dict)
 
         wordcloud1.recolor(color_func=make_color)
 
-        fig = plt.figure(figsize=(10, 10))
+        fig = plt.figure(figsize=(13, 13))
         plt.imshow(wordcloud1.recolor(color_func=make_color), interpolation='bilinear')
         plt.axis('off')
         # plt.show()
@@ -98,9 +102,9 @@ def make_words_cloud(final_result):
 
     # 긍정 리뷰 워드 클라우드
     def positive(positive_words_dict):
-        positive_cloud = WordCloud(
-            font_path='malgun.ttf',
-            background_color='white', width=500, height=500).generate_from_frequencies(positive_words_dict)
+        # positive_cloud = WordCloud(
+        #     font_path='malgun.ttf',
+        #     background_color='white', width=500, height=500).generate_from_frequencies(positive_words_dict)
 
         korea_coloring2 = np.array(
             Image.open('./static/images/good.png'))
@@ -120,12 +124,13 @@ def make_words_cloud(final_result):
             mask=korea_coloring2,
             background_color='white',
             min_font_size=1,
-            max_font_size=40
+            max_font_size=40,
+            contour_width=2, contour_color="black"
             ).generate_from_frequencies(positive_words_dict)
 
         wordcloud2.recolor(color_func=make_color2)
 
-        fig = plt.figure(figsize=(10, 10))
+        fig = plt.figure(figsize=(13, 13))
         plt.imshow(wordcloud2.recolor(color_func=make_color2), interpolation='bilinear')
         plt.axis('off')
         # plt.show()
