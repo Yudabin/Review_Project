@@ -14,7 +14,12 @@
 
 	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/main.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/landing-page.min.css') }}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css"/>
 
 </head>
 
@@ -130,24 +135,6 @@
 							{% endif %}
 						   {% endfor %}
 						</span>
-<!--					<span>-->
-<!--                   {% for review, label, score in final_result %}-->
-<!--                    	{% if score == '긍정'%}-->
-<!--                            <tr>-->
-<!--                                <td style="color:#5AD519"><strong>{{score}}</strong></td>-->
-<!--                                <td>{{review}} </td>-->
-<!--                                <td>{{label}}</td>-->
-<!--                            </tr>-->
-<!--						{% elif score == '부정'%}-->
-<!--                            <tr>-->
-<!--                                <td style="color:#E61C12"><strong>{{score}}</strong></td>-->
-<!--                                <td>{{review}} </td>-->
-<!--                                <td>{{label}}</td>-->
-<!--                            </tr>-->
-<!--                        {% endif %}-->
-
-<!--                   {% endfor %}-->
-<!--                	</span>-->
 					</tbody>
 				</table>
 				<div class="container">
@@ -166,9 +153,44 @@
 					</div>
 				</div>
 			</div>
-		</div>
 	</div>
+	<div>
+</div>
+	</div>
+	<div>
+    <section>
+        <div id="data-container"></div>
+
+        <div id="pagination"></div>
+    </section>
+</div>
 
 </form>
+
+<script>
+$(function () {
+        let container = $('#pagination');
+        container.pagination({
+            dataSource :[
+             {name: ['{{ final_result }}'] },
+              {name: "hello1"},
+               {name: "hello1"},]
+             ,
+
+            pageSize: 100,
+
+           callback: function (data, pagination) {
+                var dataHtml = '<ul>';
+
+                $.each(data, function (index, item) {
+                    dataHtml += '<li>' + item.name + '</li>';
+                });
+
+                dataHtml += '</ul>';
+				$("#data-container").html(dataHtml);
+            }
+        })
+    })
+</script>
 </body>
 </html>

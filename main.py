@@ -12,18 +12,26 @@ from crawling_image.get_image import image_poster
 from wordcloud_file.word_cloud import make_words_cloud
 from pos_neg_graph.graph import percent_graph2
 
+from flask import Flask, render_template
+from flask_paginate import Pagination, get_page_args
+
 t = Okt()
 okt = Okt()
 
 app = Flask(__name__)
-
+# app.template_folder = ''
+# users = list(range(100))
+#
+#
+# def get_users(offset=0, per_page=10):
+#     return users[offset: offset + per_page]
 
 # 메인 페이지 라우팅
 @app.route("/")
 
 @app.route("/index")
 def index():
-    return flask.render_template('index.html')
+    return flask.render_template('paginate.html')
 
 # 캐시 삭제
 @app.after_request
@@ -162,6 +170,9 @@ def make_prediction():
                 score_list.append(n)
                 bad_score_list.append(n)
         result = zip(review_list, label_list, score_list)
+
+        result_len = len(review_list)
+
         good_result = zip(good_label_list, good_review_list, good_score_list)
         bad_result = zip(bad_label_list, bad_review_list, bad_score_list)
 
@@ -180,7 +191,15 @@ def make_prediction():
         good_list = good_result
         bad_list = bad_result
 
-        return render_template('index.html', url = url, final_result=result,score=score_list,
+        result1 = {
+            'score': score_list,
+            'review' : review_list,
+            'label' : label_list
+        }
+
+
+
+        return render_template('paginate.html', url = url, result_len=result_len, final_result=result1,score=score_list,
                                image_file='../static/images/movieposter.jpg',
                            good_result = good_result, bad_result=bad_result)
 
