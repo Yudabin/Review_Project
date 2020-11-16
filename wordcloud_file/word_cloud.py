@@ -62,11 +62,13 @@ def make_words_cloud(total_review):
 
 
     stylecloud.gen_stylecloud(file_path='positive_final.txt',
-                          icon_name='fas fa-smile',
+                          icon_name='fas fa-thumbs-up',
                           # palette='colorbrewer.diverging.Spectral_11',
                           # palette='cartocolors.qualitative.Prism_3',
-                          palette='lightbartlein.sequential.Blues10_5',
+                          # palette='lightbartlein.sequential.Blues10_5',
                           # palette='lightbartlein.diverging.BlueGreen_6',
+                          #     palette='cartocolors.diverging.Tropic_2',
+                              palette='cartocolors.qualitative.Prism_5',
                           background_color='white',
                           gradient='horizontal',
                           font_path = font_fname,
@@ -83,9 +85,11 @@ def make_words_cloud(total_review):
 
 
     stylecloud.gen_stylecloud(file_path='negative_final.txt',
-                          icon_name='fas fa-tired',
+                          # icon_name='fas fa-tired',
+                              icon_name='fas fa-thumbs-down',
                           # palette='colorbrewer.diverging.Spectral_11',
                           palette='cartocolors.sequential.RedOr_5',
+                              # palette='matplotlib.Inferno_4',
                           background_color='white',
                           gradient='horizontal',
                           font_path = font_fname,

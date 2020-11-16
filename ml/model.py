@@ -17,7 +17,7 @@ from konlpy.tag import Okt; t = Okt()
 okt = Okt()
 warnings.filterwarnings("ignore")
 
-path = 'C:/Users/STU/Desktop/Flask-ML & DL-Example(1)/ml/total_review.csv'
+path = 'final_total_review.csv'
 movie_review = pd.read_csv(path)
 movie_review = movie_review.dropna(axis=0)
 movie_review['review_refined'] = movie_review['review'].apply(lambda x: re.sub('[^가-힣\s]', '', x))
