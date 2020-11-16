@@ -153,6 +153,7 @@ def make_prediction():
             if (score > 0.5):
                 label = f'{int(score * 100)} %'
                 label_list.append(label)
+
                 good_label_list.append(label)
                 good_review_list.append(pos)
 
@@ -191,15 +192,8 @@ def make_prediction():
         good_list = good_result
         bad_list = bad_result
 
-        result1 = {
-            'score': score_list,
-            'review' : review_list,
-            'label' : label_list
-        }
 
-
-
-        return render_template('index.html', url = url, result_len=result_len, final_result=result,score=score_list,
+        return render_template('index.html', url = url,  final_result=result,score=score_list,
                                image_file='../static/images/movieposter.jpg',
                            good_result = good_result, bad_result=bad_result)
 
@@ -210,6 +204,7 @@ if __name__ == '__main__':
     # 모델 로드
     # ml/model.py 선 실행 후 생성
     loaded_model = load_model('./model/best_model.h5')
-
+    # loaded_model = load_model('./model/best_model_10.h5')
+    # loaded_model = load_model('./model/best_model_epoch10_batch_size600.h5')
     # Flask 서비스 스타트
     app.run(host='0.0.0.0', port=8000, debug=True)

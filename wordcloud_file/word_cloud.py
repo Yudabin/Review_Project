@@ -60,7 +60,9 @@ def make_words_cloud(total_review):
     with open('positive_final.txt', 'w', encoding='utf-8') as f:
         f.write(mystr)
 
-
+    pos_list = ['의', '가', '이', '은', '들', '는', '좀', '잘', '걍', '과', '도',
+                '를', '으로', '자', '에', '와', '한', '하다', '정말', '너무',
+                '영화', '진짜', '엄청']
     stylecloud.gen_stylecloud(file_path='positive_final.txt',
                           icon_name='fas fa-thumbs-up',
                           # palette='colorbrewer.diverging.Spectral_11',
@@ -72,6 +74,7 @@ def make_words_cloud(total_review):
                           background_color='white',
                           gradient='horizontal',
                           font_path = font_fname,
+                          custom_stopwords=pos_list,
                           output_name='./static/images/positive.png')
 
     # 부정 데이터에서  리뷰데이터 style cloud로변환
@@ -83,6 +86,9 @@ def make_words_cloud(total_review):
     with open('negative_final.txt', 'w', encoding='utf-8') as f:
         f.write(mystr2)
 
+    neg_list = ['의', '가', '이', '은', '들', '는', '좀', '잘', '걍', '과', '도',
+                '를', '으로', '자', '에', '와', '한', '하다', '정말', '너무', '영화',
+                '진짜', '엄청', '10점', '9점', '8점', '좋아요', '재밌', '재미' ]
 
     stylecloud.gen_stylecloud(file_path='negative_final.txt',
                           # icon_name='fas fa-tired',
@@ -93,6 +99,7 @@ def make_words_cloud(total_review):
                           background_color='white',
                           gradient='horizontal',
                           font_path = font_fname,
+                          custom_stopwords=neg_list,
                           output_name='./static/images/negative.png')
 
     # 필요없는 단어 버리기
