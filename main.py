@@ -31,7 +31,7 @@ app = Flask(__name__)
 
 @app.route("/index")
 def index():
-    return flask.render_template('paginate.html')
+    return flask.render_template('index.html')
 
 # 캐시 삭제
 @app.after_request
@@ -199,7 +199,7 @@ def make_prediction():
 
 
 
-        return render_template('paginate.html', url = url, result_len=result_len, final_result=result1,score=score_list,
+        return render_template('index.html', url = url, result_len=result_len, final_result=result,score=score_list,
                                image_file='../static/images/movieposter.jpg',
                            good_result = good_result, bad_result=bad_result)
 

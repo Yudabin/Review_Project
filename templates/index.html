@@ -4,193 +4,285 @@
 <head>
 
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Naver Movie Word Cloud</title>
 
 	<!-- CSS -->
 
 	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/main.css') }}">
-	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/landing-page.min.css') }}">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css"/>
-
+	<style>
+* { margin:0; padding:0; }
+ul,li { list-style:none; }
+a { text-decoration:none; color:#000; }
+.tab { border:1px solid #ddd; border-left:none; background:#fff; overflow:hidden; }
+.tab li { float:left; width:33.3%; border-left:1px solid #ddd; text-align:center; box-sizing:border-box; }
+.tab li { display:inline-block; padding:20px; cursor:pointer; }
+.tab li.on { background-color:#eee; color:#f00; }
+.tab_con { clear:both; margin-top:5px; border:1px solid #ddd; }
+.tab_con div { display:none; height:100px; background:#fff; line-height:100px; text-align:center; }
+</style>
 </head>
 
 <body>
 <form id="upload" action="/predict" method="POST" enctype="multipart/form-data">
 
-	<!-- Wrapper -->
-	<div>
-		<!-- Main -->
-		<div id="main">
+	<!-- Main -->
+	<header id="header" class="alt">
+		<div class="logo"><a href="index.html">Real Review <span>우리들 이름</span></a></div>
+	</header>
 
-			<!-- 메인 포스트 -->
-			<article class="post featured">
-				<header class="major">
-					<span class="date">Naver Review Analyze</span>
-					<h2 style="font-size:3rem;mar;line-height: 1.5">영화에 대한 사람들의 속마음,<br>
-						Data로 보여드립니다</h2>
-				</header>
-
-				<!-- 버튼 넣기 -->
-				<div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+	<!-- Main 검색창 -->
+	<section class="banner full">
+		<article>
+			<img src="{{ url_for('static', filename = 'images/bg.jpg') }}" alt="" />
+			<div class="inner">
+				<header>
+					<p>영화에 대한 사람들의 진짜 생각</p>
+					<h2>Real Review</h2>
 					<div class="form-row">
-						<div class="col-12 col-md-9 mb-2 mb-md-0" style="background-color:#d8d7d9">
-							<input name="url" type="text" class="form-control form-control-lg" placeholder="네이버 영화 URL을 넣어주세요">
+						<div class="buttom" style="background-color:#000000;border=none;outline:none">
+							<input name="url" type="text" class="button_main" placeholder="네이버 영화 URL을 넣어주세요">
 						</div>
-						<div class="col-12 col-md-3">
-							<br><button type="submit" class="btn btn-block btn-lg btn-primary">Click!</button>
-						</div>
-					</div>
-				</div>
-
-
-			</article>
-
-			<!-- Posts -->
-			<section class="posts">
-				<article>
-					<header>
-						<h2><a href="#">영화 포스터</a></h2>
-					</header>
-					<a href="#" class="image fit">
-						{% if url %}
-							<img src="{{ url_for('static', filename=image_file) }}" style="width:100%;height:100%"></a>
-
-						{% else %}
-							<img src="{{ url_for('static', filename = '/images/poster.jpg') }}"></a>
-						{% endif %}
-						<p></p>
-				</article>
-				<article>
-					<header>
-						<h2><a href="#">긍정/부정 비율</a></h2>
-					</header>
-					<a href="#" class="image fit">
-						{% if url %}
-							<img src="{{ url_for('static', filename = '/images/pos_neg_ratio.png') }}"style="width:100%;height:100%"></a>
-						{% else %}
-							<img src="{{ url_for('static', filename = '/images/example_ratio.png') }}"></a>
-						{% endif %}
-					<p></p>
-				</article>
-				<article>
-					<header>
-						<h2><a href="#">긍정 Word Cloud</a></h2>
-					</header>
-					<a href="#" class="image fit">
-						{% if url %}
-							<img src="{{ url_for('static', filename = '/images/positive.png') }}"></a>
-						{% else %}
-							<img src="{{ url_for('static', filename = '/images/wc_p.png') }}"></a>
-						{% endif %}
-					<p></p>
-				</article>
-				<article>
-					<header>
-						<h2><a href="#">부정 Word Cloud</a></h2>
-					</header>
-					<a href="#" class="image fit">
-						{% if url %}
-							<img src="{{ url_for('static', filename = '/images/negative.png') }}"></a>
-						{% else %}
-							<img src="{{ url_for('static', filename = '/images/wc_n.png') }}"></a>
-						{% endif %}
-					<p></p>
-				</article>
-			</section>
-			<!-- 게시판 -->
-
-			<div class="container-fluid p-0">
-				<table class="table table-striped" style="width:100%;margin:auto">
-					<thead>
-					<tr>
-						<th style="text-align:center;width:20%;font-size:18pt;font-weight:bold">분류</th>
-						<th style="text-align:center;width:60%;font-size:18pt;font-weight:bold">리뷰 내용</th>
-						<th style="text-align:center;width:20%;font-size:18pt;font-weight:bold">정확도</th>
-					</tr>
-					</thead>
-					<tbody>
-						<span>
-						   {% for review, label, score in final_result %}
-							{% if score == '긍정'%}
-								<tr>
-								<td style="text-align: center; color:#5AD519;vertical-align: middle;font-size:16pt; font-weight:bold">{{score}}</td>
-								<td style="vertical-align: middle;font-size:14pt">{{review}} </td>
-								<td style="text-align: center; vertical-align: middle;font-size:16pt">{{label}}</td>
-								</tr>
-							{% elif score == '부정'%}
-								<tr>
-								<td style="text-align: center; color:#E61C12; vertical-align: middle;font-size:16pt;font-weight:bold">{{score}}</td>
-								<td style="vertical-align: middle;font-size:14pt">{{review}} </td>
-								<td style="text-align: center; vertical-align: middle;font-size:16pt">{{label}}</td>
-								</tr>
-							{% endif %}
-						   {% endfor %}
-						</span>
-					</tbody>
-				</table>
-				<div class="container">
-					<div class="row">
-						<div class="col">
-							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">4</a></li>
-								<li class="page-item"><a class="page-link" href="#">5</a></li>
-								<li class="page-item"><a class="page-link" href="#">Next</a></li>
-							</ul>
+						<div class="button2"><br>
+							<button type="submit" class="button_click">Click</button>
 						</div>
 					</div>
-				</div>
+				</header>
 			</div>
+		</article>
+	</section>
+
+	<!-- 첫 번째 섹션 -->
+	<section id="one" class="wrapper style2">
+		<div class="inner">
+			<div class="grid-style">
+				<div>
+					<div class="box">
+						<div class="image fit">
+							{% if url %}
+							<img src="{{ url_for('static', filename=image_file) }}"style="margin: 0 auto;width:50%;height:50%"></a>
+
+							{% else %}
+							<img src="{{ url_for('static', filename = '/images/movie_example.jpg') }}"style="margin: 0 auto;width:50%;height:50%"></a>
+							{% endif %}
+						</div>
+						<div class="content">
+							<header class="align-center">
+								<h2>영화 포스터</h2>
+							</header>
+							<p>검색한 영화의 고화질 포스터를 보여줍니다. 포스터는 네이버 영화 홈페이지에 정식으로 등록되어 있는 이미지입니다.</p>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<div class="box">
+						<div class="image fit">
+							{% if url %}
+							<img src="{{ url_for('static', filename = '/images/pos_neg_ratio.png') }}"style="margin: 0 auto;width:70%;height:70%"></a>
+							{% else %}
+							<img src="{{ url_for('static', filename = '/images/example_ratio.png') }}"style="margin: 0 auto;width:74%;height:74%"></a>
+							{% endif %}
+						</div>
+						<div class="content">
+							<header class="align-center">
+								<h2>선호도 비율</h2>
+							</header>
+							<p>전체 댓글 중 긍정/부정의 비율을 보여줍니다. 특정 비율이 더 높을 경우, 전체 평점에 영향을 미칩니다.</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<!-- 나눔바1 -->
+	<section id="two_half" class="wrapper style3" style="background-color:#130a40">
+		<div class="inner">
+			<header class="align-center">
+				<h2>영화 리뷰 Word Cloud</h2>
+			</header>
+		</div>
+	</section>
+
+	<!-- Three -->
+	<section id="three" class="wrapper style2">
+		<div class="inner">
+			<div class="grid-style">
+
+				<div>
+					<div class="box">
+						<div class="content">
+							<header class="align-center">
+								<h2>긍정어 Clude</h2>
+							</header>
+							<p style="color:black;">긍정으로 판별된 댓글의 단어들을 조합하여 만들어진 워드 클라우드입니다. 영화의 주요 느낌을 한 번에 볼 수 있습니다.</p>
+
+							<div class="image fit">
+								{% if url %}
+								<img src="{{ url_for('static', filename = '/images/positive.png') }}"style="margin: 0 auto;width:70%;height:70%"></a>
+								{% else %}
+								<img src="{{ url_for('static', filename = '/images/wc_p.png') }}"style="margin: 0 auto;width:70%;height:70%"></a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<div class="box">
+						<div class="content">
+							<header class="align-center">
+								<h2>부정어 Clude</h2>
+							</header>
+							<p style="color:black">부정으로 판별된 댓글의 단어들을 조합하여 만들어진 워드 클라우드입니다. 평점이 높을 경우 표현이 충분하지 못할 수 있습니다.</p>
+
+							<div class="image fit">
+								{% if url %}
+								<img src="{{ url_for('static', filename = '/images/negative.png') }}"style="margin: 0 auto;width:70%;height:70%"></a>
+								{% else %}
+								<img src="{{ url_for('static', filename = '/images/wc_n.png') }}"style="margin: 0 auto;width:70%;height:70%"></a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<!-- 나눔바2 -->
+	<section id="two" class="wrapper style3">
+		<div class="inner">
+			<header class="align-center">
+				<h2>리뷰 1000개의 긍정/부정 판별</h2>
+			</header>
+		</div>
+	</section>
+
+	<!-- 게시판 -->
+	<br><br><br>
+	<!--	<div class="container-fluid p-0">-->
+	<ul class="tab" id="tab">
+		<li>전체</li>
+		<li>긍정</li>
+		<li>부정</li>
+
+	</ul>
+
+	<div class="tab_con" id="tab_con">
+		<div>
+<!--			전체  -->
+			<table class="table table-striped" style="width:80%;margin:auto">
+				<thead>
+				<tr>
+					<th style="text-align:center;width:20%;font-size:18pt;font-weight:bold">분류</th>
+					<th style="text-align:center;width:60%;font-size:18pt;font-weight:bold">리뷰 내용</th>
+					<th style="text-align:center;width:20%;font-size:18pt;font-weight:bold">정확도</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for review, label, score in final_result %}
+                     {% if score == '긍정'%}
+                        <tr>
+                        <td style="text-align: center; color:#5AD519;vertical-align: middle;font-size:16pt; font-weight:bold">{{score}}</td>
+                        <td style="vertical-align: middle;font-size:14pt">{{review}} </td>
+                        <td style="text-align: center; vertical-align: middle;font-size:16pt">{{label}}</td>
+                        </tr>
+                     {% elif score == '부정'%}
+                        <tr>
+                        <td style="text-align: center; color:#E61C12; vertical-align: middle;font-size:16pt;font-weight:bold">{{score}}</td>
+                        <td style="vertical-align: middle;font-size:14pt">{{review}} </td>
+                        <td style="text-align: center; vertical-align: middle;font-size:16pt">{{label}}</td>
+                        </tr>
+                     {% endif %}
+                     {% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div>
+<!--			긍정 -->
+			<table class="table table-striped" style="width:80%;margin:auto">
+				<thead>
+				<tr>
+					<th style="text-align:center;width:20%;font-size:18pt;font-weight:bold">분류</th>
+					<th style="text-align:center;width:60%;font-size:18pt;font-weight:bold">리뷰 내용</th>
+					<th style="text-align:center;width:20%;font-size:18pt;font-weight:bold">정확도</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for label,review,  score in good_result %}
+					<tr>
+						<td style="text-align: center; color:#5AD519;vertical-align: middle;font-size:16pt; font-weight:bold">{{score}}</td>
+						<td style="vertical-align: middle;font-size:14pt">{{review}} </td>
+						<td style="text-align: center; vertical-align: middle;font-size:16pt">{{label}}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div>
+<!--			부정 -->
+			<table class="table table-striped" style="width:80%;margin:auto">
+				<thead>
+				<tr>
+					<th style="text-align:center;width:20%;font-size:18pt;font-weight:bold">분류</th>
+					<th style="text-align:center;width:60%;font-size:18pt;font-weight:bold">리뷰 내용</th>
+					<th style="text-align:center;width:20%;font-size:18pt;font-weight:bold">정확도</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for label, review,  score in bad_result %}
+				<tr>
+					<td style="text-align: center; color:#E61C12;vertical-align: middle;font-size:16pt; font-weight:bold">{{score}}</td>
+					<td style="vertical-align: middle;font-size:14pt">{{review}} </td>
+					<td style="text-align: center; vertical-align: middle;font-size:16pt">{{label}}</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
 	</div>
-	<div>
-</div>
-	</div>
-	<div>
-    <section>
-        <div id="data-container"></div>
+	<!--	</div>-->
+	<!-- Scripts -->
 
-        <div id="pagination"></div>
-    </section>
-</div>
+	<script src="{{ url_for('static', filename = 'js/jquery.min.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'js/jquery.scrollex.min.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'js/skel.min.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'js/util.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'js/main.js') }}"></script>
 
-</form>
+	<script>
+	$(function () {
+		tab('#tab',0);
+	});
 
-<script>
-$(function () {
-        let container = $('#pagination');
-        container.pagination({
-            dataSource :[
-             {name: ['{{ final_result }}'] },
-              {name: "hello1"},
-               {name: "hello1"},]
-             ,
+	function tab(e, num){
+		var num = num || 0;
+		var menu = $(e).children();
+		var con = $(e+'_con').children();
+		var select = $(menu).eq(num);
+		var i = num;
 
-            pageSize: 100,
+		select.addClass('on');
+		con.eq(num).show();
 
-           callback: function (data, pagination) {
-                var dataHtml = '<ul>';
+		menu.click(function(){
+			if(select!==null){
+				select.removeClass("on");
+				con.eq(i).hide();
+			}
 
-                $.each(data, function (index, item) {
-                    dataHtml += '<li>' + item.name + '</li>';
-                });
+			select = $(this);
+			i = $(this).index();
 
-                dataHtml += '</ul>';
-				$("#data-container").html(dataHtml);
-            }
-        })
-    })
+			select.addClass('on');
+			con.eq(i).show();
+    	});
+	}
 </script>
+</form>
 </body>
 </html>

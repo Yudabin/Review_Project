@@ -62,9 +62,12 @@ def make_words_cloud(total_review):
 
 
     stylecloud.gen_stylecloud(file_path='positive_final.txt',
-                          icon_name='fas fa-cat',
-                          palette='colorbrewer.diverging.Spectral_11',
-                          background_color='black',
+                          icon_name='fas fa-smile',
+                          # palette='colorbrewer.diverging.Spectral_11',
+                          # palette='cartocolors.qualitative.Prism_3',
+                          palette='lightbartlein.sequential.Blues10_5',
+                          # palette='lightbartlein.diverging.BlueGreen_6',
+                          background_color='white',
                           gradient='horizontal',
                           font_path = font_fname,
                           output_name='./static/images/positive.png')
@@ -80,9 +83,10 @@ def make_words_cloud(total_review):
 
 
     stylecloud.gen_stylecloud(file_path='negative_final.txt',
-                          icon_name='fas fa-dog',
-                          palette='colorbrewer.diverging.Spectral_11',
-                          background_color='black',
+                          icon_name='fas fa-tired',
+                          # palette='colorbrewer.diverging.Spectral_11',
+                          palette='cartocolors.sequential.RedOr_5',
+                          background_color='white',
                           gradient='horizontal',
                           font_path = font_fname,
                           output_name='./static/images/negative.png')
