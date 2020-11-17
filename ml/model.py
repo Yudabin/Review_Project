@@ -88,7 +88,7 @@ def below_threshold_len(max_len, nested_list):
     if(len(s) <= max_len):
         cnt = cnt + 1
 
-max_len = 30
+max_len = 35
 
 X_train = pad_sequences(X_train, maxlen = max_len)
 X_test = pad_sequences(X_test, maxlen = max_len)
@@ -99,10 +99,10 @@ model.add(LSTM(128))
 model.add(Dense(1, activation='sigmoid'))
 
 es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=4)
-mc = ModelCheckpoint('best_model.h5', monitor='val_acc', mode='max', verbose=1, save_best_only=True)
+mc = ModelCheckpoint('best_model_max_len_35.h5', monitor='val_acc', mode='max', verbose=1, save_best_only=True)
 
 model.compile(optimizer='rmsprop', loss='binary_crossentropy', metrics=['acc'])
 history = model.fit(X_train, y_train, epochs=15, callbacks=[es, mc], batch_size=60, validation_split=0.2)
 
 # 모델 저장
-model.save('../model/best_model.h5')
+model.save('../model/best_model_max_len_35.h5')
