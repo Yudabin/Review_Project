@@ -203,8 +203,9 @@ def make_prediction():
 if __name__ == '__main__':
     # 모델 로드
     # ml/model.py 선 실행 후 생성
-    # loaded_model = load_model('./model/best_model.h5')
-    loaded_model = load_model('./model/best_model_max_len_35.h5')
+    loaded_model = load_model('./model/best_model.h5')
+    # loaded_model = load_model('./model/best_model_15_50.h5')
+    # loaded_model = load_model('./model/best_model_max_len_35.h5')
     # loaded_model = load_model('./model/best_model_epoch10_batch_size600.h5')
     # Flask 서비스 스타트
     app.run(host='0.0.0.0', port=8000, debug=True)
