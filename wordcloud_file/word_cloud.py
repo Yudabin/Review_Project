@@ -21,8 +21,8 @@ import matplotlib.pyplot as plt
 
 from matplotlib import font_manager
 
-font_fname = './wordcloud_file/NanumBarunGothic.ttf'
-
+# font_fname = './wordcloud_file/TTTogether.ttf'
+font_fname = './wordcloud_file/Maplestory Bold.ttf'
 font_family = font_manager.FontProperties(fname=font_fname).get_name()
 
 plt.rcParams["font.family"] = font_family
@@ -62,9 +62,9 @@ def make_words_cloud(total_review):
 
     pos_list = ['의', '가', '이', '은', '들', '는', '좀', '잘', '걍', '과', '도',
                 '를', '으로', '자', '에', '와', '한', '하다', '정말', '너무',
-                '영화', '진짜', '엄청']
+                '영화', '진짜', '엄청','다', '더', '또', '그', '수', '내']
     stylecloud.gen_stylecloud(file_path='positive_final.txt',
-                          icon_name='fas fa-thumbs-up',
+                          icon_name='fas fa-star',
                           # palette='colorbrewer.diverging.Spectral_11',
                           # palette='cartocolors.qualitative.Prism_3',
                           # palette='lightbartlein.sequential.Blues10_5',
@@ -88,11 +88,12 @@ def make_words_cloud(total_review):
 
     neg_list = ['의', '가', '이', '은', '들', '는', '좀', '잘', '걍', '과', '도',
                 '를', '으로', '자', '에', '와', '한', '하다', '정말', '너무', '영화',
-                '진짜', '엄청', '10점', '9점', '8점', '좋아요', '재밌', '재미' ]
+                '진짜', '엄청', '10점', '9점', '8점', '좋아요', '재밌', '재미','더','다',
+                '그']
 
     stylecloud.gen_stylecloud(file_path='negative_final.txt',
                           # icon_name='fas fa-tired',
-                              icon_name='fas fa-thumbs-down',
+                              icon_name='fas fa-star-half',
                           # palette='colorbrewer.diverging.Spectral_11',
                           palette='cartocolors.sequential.RedOr_5',
                               # palette='matplotlib.Inferno_4',
