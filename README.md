@@ -1,69 +1,31 @@
-# [Start Bootstrap - Landing Page](https://startbootstrap.com/theme/landing-page/)
+# [네이버 영화 리뷰 감성 분석 플랫폼] :thought_balloon:
+파이썬을 활용한 네이버 영화 리뷰 긍정/부정 예측 서비스
 
-[Landing Page](https://startbootstrap.com/theme/landing-page/) is a multipurpose landing page template for [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/).
+## 1. 데이터 수집
+크롤링을 통해 긍정 리뷰 25만 개, 부정 리뷰 25만 개 총 50만 개의 리뷰 데이터 수집
+
+## 2. 데이터 전처리
+* 한글 데이터만 남기기
+* 토큰화 적용, 불용어 제거
+* 정수 인코딩
+* 패딩
+
+## 3. LSTM 모델로 학습, 예측
+
 
 ## Preview
 
-[![Landing Page Preview](https://assets.startbootstrap.com/img/screenshots/themes/landing-page.png)](https://startbootstrap.github.io/startbootstrap-landing-page/)
+![main.JPG](./static/images/naver_movie.png)
+:arrow_right: [네이버 영화 사이트](https://movie.naver.com/movie/bi/mi/basic.nhn?code=189141) 에서 url 복사
 
-**[View Live Preview](https://startbootstrap.github.io/startbootstrap-landing-page/)**
+![main.JPG](./static/images/input_url.png)
+:arrow_right: 플랫폼 url 검색창에 붙여넣기
 
-## Status
+![main.JPG](./static/images/poster_graph.JPG)
+:arrow_right: 해당 url에 대한 영화 포스터와 리뷰 크롤링 수행 후 시각화 
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/StartBootstrap/startbootstrap-landing-page/master/LICENSE)
-[![npm version](https://img.shields.io/npm/v/startbootstrap-landing-page.svg)](https://www.npmjs.com/package/startbootstrap-landing-page)
-[![Build Status](https://travis-ci.org/StartBootstrap/startbootstrap-landing-page.svg?branch=master)](https://travis-ci.org/StartBootstrap/startbootstrap-landing-page)
-[![dependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-landing-page/status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-landing-page)
-[![devDependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-landing-page/dev-status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-landing-page?type=dev)
+![main.JPG](./static/images/stylecloud.JPG)
+:arrow_right: 영화 리뷰에 대해 긍정과 부정을 stylecloud로 시각화
 
-## Download and Installation
-
-To begin using this template, choose one of the following options to get started:
-
-* [Download the latest release on Start Bootstrap](https://startbootstrap.com/theme/landing-page/)
-* Install via npm: `npm i startbootstrap-landing-page`
-* Clone the repo: `git clone https://github.com/StartBootstrap/startbootstrap-landing-page.git`
-* [Fork, Clone, or Download on GitHub](https://github.com/StartBootstrap/startbootstrap-landing-page)
-
-## Usage
-
-### Basic Usage
-
-After downloading, simply edit the HTML and CSS files included with the template in your favorite text editor to make changes. These are the only files you need to worry about, you can ignore everything else! To preview the changes you make to the code, you can open the `index.html` file in your web browser.
-
-### Advanced Usage
-
-After installation, run `npm install` and then run `npm start` which will open up a preview of the template in your default browser, watch for changes to core template files, and live reload the browser when changes are saved. You can view the `gulpfile.js` to see which tasks are included with the dev environment.
-
-#### Gulp Tasks
-
-* `gulp` the default task that builds everything
-* `gulp watch` browserSync opens the project in your default browser and live reloads when changes are made
-* `gulp css` compiles SCSS files into CSS and minifies the compiled CSS
-* `gulp js` minifies the themes JS file
-* `gulp vendor` copies dependencies from node_modules to the vendor directory
-
-You must have npm installed globally in order to use this build environment.
-
-## Bugs and Issues
-
-Have a bug or an issue with this template? [Open a new issue](https://github.com/StartBootstrap/startbootstrap-landing-page/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](https://startbootstrap.com/theme/landing-page/).
-
-## About
-
-Start Bootstrap is an open source library of free Bootstrap templates and themes. All of the free templates and themes on Start Bootstrap are released under the MIT license, which means you can use them for any purpose, even for commercial projects.
-
-* <https://startbootstrap.com>
-* <https://twitter.com/SBootstrap>
-
-Start Bootstrap was created by and is maintained by **[David Miller](https://davidmiller.io/)**.
-
-* <https://davidmiller.io>
-* <https://twitter.com/davidmillerhere>
-* <https://github.com/davidtmiller>
-
-Start Bootstrap is based on the [Bootstrap](https://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
-
-## Copyright and License
-
-Copyright 2013-2020 Start Bootstrap LLC. Code released under the [MIT](https://github.com/StartBootstrap/startbootstrap-landing-page/blob/gh-pages/LICENSE) license.
+![main.JPG](./static/images/positive_review.JPG)
+:arrow_right: 영화 리뷰에 대해 긍정과 부정 예측 결과 시각화
